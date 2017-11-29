@@ -1,0 +1,141 @@
+﻿@helper DisplayMenu(string item)
+{
+    if (item.ToUpper() == ViewBag.menukey.ToUpper())
+    {
+        @Html.Raw("active")
+    }
+}
+
+@helper DisplayMenuIcon(string item)
+{
+    if (item.ToUpper() == ViewBag.menukey.ToUpper())
+    {
+         <i class="fa fa-check text-success" aria-hidden="true"></i>
+    }
+}
+
+@helper ShowAirline(string airline)
+{
+if (airline == "中華航空")
+{
+        @Html.Raw("華航")
+        <img src="https://d3g2yh83to8qa2.cloudfront.net/wp-content/uploads/1/2016/09/09021145/ci-logo.jpg" class="rounded table-primary" style="height:20px;">
+}
+else if (airline == "全日空")
+{
+        @Html.Raw("ANA")
+        <img src="https://talkairlines.files.wordpress.com/2014/03/ana_logo_low.jpg" class="rounded table-primary" style="height:20px;">
+}
+else
+{
+        @Html.Raw(airline)
+}
+}
+
+@{
+    var menu = ViewData["menu"] as IEnumerable<NvestedExp.Models.Sys_MenuData>;
+    var viewData = ViewData["viewData"] as System.Data.DataTable;
+}
+<!-- Second Menu -->
+<nav class="bg-light sidebar2">
+    <ul class="nav nav-pills flex-column">
+        <li class="nav-item title">
+            CONSOLE
+        </li>
+    </ul>
+    <hr>
+    <ul class="nav nav-pills flex-column">
+        <li class="nav-item item">
+            <button type="button" class="btn btn-light" style="padding:0;width:100%;font-size:14px;">
+                <font class="float-left"><i class="fa fa-search" aria-hidden="true"></i> Search</font>
+                <font class="text-secondary float-right" style="padding-right:10px;">Shift+q</font>
+            </button>
+        </li>
+        <li class="nav-item item">
+            <button type="button" class="btn btn-light" style="padding:0;width:100%;font-size:14px;">
+                <font class="float-left"><i class="fa fa-file-o" aria-hidden="true"></i> New</font>
+                <font class="text-secondary float-right" style="padding-right:10px;">Shift+n</font>
+            </button>
+        </li>
+        <li class="nav-item item">
+            <button type="button" class="btn btn-light" style="padding:0;width:100%;font-size:14px;">
+                <font class="float-left"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</font>
+                <font class="text-secondary float-right" style="padding-right:10px;">Shift+s</font>
+            </button>
+        </li>
+        <li class="nav-item item">
+            <button type="button" class="btn btn-light" style="padding:0;width:100%;font-size:14px;">
+                <font class="float-left"><i class="fa fa-refresh" aria-hidden="true"></i> Refresh</font>
+                <font class="text-secondary float-right" style="padding-right:10px;">Shift+r</font>
+            </button>
+        </li>
+    </ul>
+    <ul class="nav nav-pills flex-column">
+        <li class="nav-item title">
+            LIST
+        </li>
+    </ul>
+    <hr>
+    <ul class="nav nav-pills flex-column">
+        @{
+            int i = 1;
+            foreach (var item in menu)
+            {
+                <li class="nav-item item">
+                    <a href="/Airtickets/Index/@item.Key" class="btn btn-light @DisplayMenu(@item.Key)" role="button" style="padding:0;width:100%;font-size:14px;">
+                        <font class="float-left">@i. @item.Value</font>
+                        <font class="float-right" style="padding-right:10px;">@DisplayMenuIcon(@item.Key)</font>
+                    </a>
+                </li>
+                i++;
+            }
+        }
+    </ul>
+</nav>
+
+<!-- main -->
+<main role="main" class="col-12 main">
+    <h4 class="text-dark">
+        <i class="fa fa-calendar" aria-hidden="true">
+            @ViewBag.title<font>_</font> @ViewBag.titleCh
+        </i>
+    </h4>
+    <hr>
+    @ViewBag.menuName
+    <font style="font-size:12px;">(共 @viewData.Rows.Count 筆資料)</font>
+    <nav aria-label="breadcrumb" role="navigation">
+        <table class="table table-sm table-hover" style="font-size:12px;">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">報價日期</th>
+                    <th scope="col">價格</th>
+                    <th scope="col">總價</th>
+                    <th scope="col">去程</th>
+                    <th scope="col">航空公司</th>
+                    <th scope="col">回程</th>
+                    <th scope="col">航空公司</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    i = 1;
+                    foreach (System.Data.DataRow row in viewData.Rows)
+                    {
+                        <tr>
+                            <th scope="row">@i</th>
+                            <td>@row["day"].ToString().Substring(0, 4)/@row["day"].ToString().Substring(4, 2)/@row["day"].ToString().Substring(6, 2)</td>
+                            <td>@string.Format("{0:N0}", Convert.ToInt16(row["ticketFare"]))</td>
+                            <td>@string.Format("{0:N0}", Convert.ToInt16(row["ticketFare"]) * 3)</td>
+                            <td>@row["o_depTime"].ToString()<font>(</font>@row["o_departure"].ToString()<font>)</font> - @row["o_arrTime"].ToString()<font>(</font>@row["o_destination"].ToString()<font>)</font></td>
+                            <td>@ShowAirline(row["o_airline"].ToString())</td>
+                            <td>@row["i_depTime"].ToString()<font>(</font>@row["i_departure"].ToString()<font>)</font> - @row["i_arrTime"].ToString()<font>(</font>@row["i_destination"].ToString()<font>)</font></td>
+                            <td>@ShowAirline(row["i_airline"].ToString())</td>
+                        </tr>
+                        i++;
+                    }
+                }
+            </tbody>
+        </table>
+    </nav>
+</main>

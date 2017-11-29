@@ -1,0 +1,111 @@
+﻿@{
+    ViewBag.Title = "Airtickets";
+    ViewBag.TitleCh = "航空機票報價";
+}
+<!-- Second Menu -->
+<nav class="bg-light sidebar2">
+    <ul class="nav nav-pills flex-column">
+        <li class="nav-item title">
+            CONSOLE
+        </li>
+    </ul>
+    <hr>
+    <ul class="nav nav-pills flex-column">
+        <li class="nav-item item">
+            <button type="button" class="btn btn-light" style="padding:0;width:100%;font-size:14px;">
+                <font class="float-left"><i class="fa fa-search" aria-hidden="true"></i> Search</font>
+                <font class="text-secondary float-right" style="padding-right:10px;">Shift+q</font>
+            </button>
+        </li>
+        <li class="nav-item item">
+            <button type="button" class="btn btn-light" style="padding:0;width:100%;font-size:14px;">
+                <font class="float-left"><i class="fa fa-file-o" aria-hidden="true"></i> New</font>
+                <font class="text-secondary float-right" style="padding-right:10px;">Shift+n</font>
+            </button>
+        </li>
+        <li class="nav-item item">
+            <button type="button" class="btn btn-light" style="padding:0;width:100%;font-size:14px;">
+                <font class="float-left"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</font>
+                <font class="text-secondary float-right" style="padding-right:10px;">Shift+s</font>
+            </button>
+        </li>
+        <li class="nav-item item">
+            <button type="button" class="btn btn-light" style="padding:0;width:100%;font-size:14px;">
+                <font class="float-left"><i class="fa fa-refresh" aria-hidden="true"></i> Refresh</font>
+                <font class="text-secondary float-right" style="padding-right:10px;">Shift+r</font>
+            </button>
+        </li>
+    </ul>
+    <ul class="nav nav-pills flex-column">
+        <li class="nav-item title">
+            LIST
+        </li>
+    </ul>
+    <hr>
+    <ul class="nav nav-pills flex-column">
+        <li class="nav-item item">
+            <a href="/Crawler/Index/AirTicket" class="btn btn-light" role="button" style="padding:0;width:100%;font-size:14px;">
+                <font class="float-left">1. 航空機票報價 @ViewBag.Item</font>
+                <font class="float-right" style="padding-right:10px;"></font>
+            </a>
+        </li>
+        <li class="nav-item item">
+            <a href="/Crawler/Index/2" class="btn btn-light active" role="button" style="padding:0;width:100%;font-size:14px;">
+                <font class="float-left">2. 04/07 <i class="fa fa-arrows-h" aria-hidden="true"></i> 04/14</font>
+                <font class="float-right" style="padding-right:10px;"><i class="fa fa-check text-success" aria-hidden="true"></i></font>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<!-- main -->
+<main role="main" class="col-12 main">
+    <h4 class="text-dark">@ViewBag.Title <font class="ch-title">_ @ViewBag.TitleCh</font></h4>
+    <hr>
+
+    <nav aria-label="breadcrumb" role="navigation">
+        <ol class="breadcrumb bg-white it-title">
+            <li class="breadcrumb-item"><i class="fa fa-calendar" aria-hidden="true"></i> 航空機票報價</li>
+        </ol>
+
+        <table class="table table-sm table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">報價日期</th>
+                    <th scope="col">航空公司</th>
+                    <th scope="col">價格</th>
+                    <th scope="col">總價</th>
+                    <th scope="col">去程</th>
+                    <th scope="col">耗時</th>
+                    <th scope="col">回程</th>
+                    <th scope="col">耗時</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>11/06</td>
+                    <td>華航 <img src="https://d3g2yh83to8qa2.cloudfront.net/wp-content/uploads/1/2016/09/09021145/ci-logo.jpg" class="rounded table-primary" style="height:20px;"></td>
+                    <td>11,571</td>
+                    <td>34,711</td>
+                    <td>09:10(TPE) - 12:50(KIX)</td>
+                    <td>2h55m</td>
+                    <td>19:05(TAK) - 20:45(TPE)</td>
+                    <td>2h40m</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>11/16</td>
+                    <td>華航 <img src="https://d3g2yh83to8qa2.cloudfront.net/wp-content/uploads/1/2016/09/09021145/ci-logo.jpg" class="rounded table-primary" style="height:20px;"></td>
+                    <td>12,460</td>
+                    <td>37,378</td>
+                    <td>08:20(TPE) - 12:00(KIX)</td>
+                    <td>2h40m</td>
+                    <td>19:05(TAK) - 20:45(TPE)</td>
+                    <td>2h40m</td>
+                </tr>
+            </tbody>
+        </table>
+    </nav>
+</main>

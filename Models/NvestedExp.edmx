@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CrawlerData">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Object" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Object" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Identify" Type="nvarchar" MaxLength="15" />
+          <Property Name="Key" Type="nvarchar" MaxLength="15" />
+          <Property Name="Value" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Sys_MenuData">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Object" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Object" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Identify" Type="nvarchar" MaxLength="15" />
+          <Property Name="Key" Type="nvarchar" MaxLength="15" />
+          <Property Name="Value" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityContainer Name="StoreContainer">
+          <EntitySet Name="CrawlerData" EntityType="Self.CrawlerData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sys_MenuData" EntityType="Self.Sys_MenuData" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="NvestedExpModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="NvestedExpEntities" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="CrawlerDatas" EntityType="NvestedExpModel.CrawlerData" />
+          <EntitySet Name="Sys_MenuData" EntityType="NvestedExpModel.Sys_MenuData" />
+        </EntityContainer>
+        <EntityType Name="CrawlerData">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Object" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="Object" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Identify" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Key" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Value" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Sys_MenuData">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Object" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="Object" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Identify" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Key" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Value" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="StoreContainer" CdmEntityContainer="NvestedExpEntities" >
+          <EntitySetMapping Name="CrawlerDatas">
+            <EntityTypeMapping TypeName="NvestedExpModel.CrawlerData">
+              <MappingFragment StoreEntitySet="CrawlerData">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Key" ColumnName="Key" />
+                <ScalarProperty Name="Identify" ColumnName="Identify" />
+                <ScalarProperty Name="Object" ColumnName="Object" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sys_MenuData">
+            <EntityTypeMapping TypeName="NvestedExpModel.Sys_MenuData">
+              <MappingFragment StoreEntitySet="Sys_MenuData">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Key" ColumnName="Key" />
+                <ScalarProperty Name="Identify" ColumnName="Identify" />
+                <ScalarProperty Name="Object" ColumnName="Object" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram DiagramId="002d1385402b49fb9425d1a828ad930a" Name="Diagram1">
+        <EntityTypeShape EntityType="NvestedExpModel.CrawlerData" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="NvestedExpModel.Sys_MenuData" Width="1.5" PointX="2.75" PointY="0.75" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

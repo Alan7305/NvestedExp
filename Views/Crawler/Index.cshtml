@@ -1,0 +1,224 @@
+﻿@helper DisplayMenu(string item)
+{
+    if (item.ToUpper() == ViewBag.menukey.ToUpper())
+    {
+        @Html.Raw("active")
+    }
+}
+
+@helper DisplayMenuIcon(string item)
+{
+    if (item.ToUpper() == ViewBag.menukey.ToUpper())
+    {
+        <i class="fa fa-check text-success" aria-hidden="true"></i>
+    }
+}
+
+@{ 
+    var data = ViewData["data"] as IEnumerable<NvestedExp.Models.CrawlerData>;
+    var menu = ViewData["menu"] as IEnumerable<NvestedExp.Models.Sys_MenuData>;
+    var viewData = ViewData["viewData"] as System.Data.DataTable;
+}
+<!-- Second Menu -->
+<nav class="bg-light sidebar2">
+    <ul class="nav nav-pills flex-column">
+        <li class="nav-item title">
+            CONSOLE
+        </li>
+    </ul>
+    <hr>
+    <ul class="nav nav-pills flex-column">
+        <li class="nav-item item">
+            <button id="searchButton" type="button" class="btn btn-light" style="padding:0;width:100%;font-size:14px;">
+                <font class="float-left"><i class="fa fa-search" aria-hidden="true"></i> Search</font>
+                <font class="text-secondary float-right" style="padding-right:10px;">Ctrl+q</font>
+            </button>
+            <div id="searchDiv" class="input-group input-group-sm" style="display:none;">
+                <font class="float-left"><i class="fa fa-search" aria-hidden="true" style="padding-top:6px"></i></font>
+                <input id="searchInput" style="height:23px;padding:4px;" type="text" class="form-control btn-light" placeholder="Search                Ctrl+q">
+            </div>
+        </li>
+        <li class="nav-item item">
+            <button type="button" class="btn btn-light" style="padding:0;width:100%;font-size:14px;" data-toggle="modal" data-target="#syncModal">
+                <font class="float-left"><i class="fa fa-download" aria-hidden="true"></i> Sync</font>
+                <font class="text-secondary float-right" style="padding-right:10px;">Ctrl+c</font>
+            </button>
+        </li>
+    </ul>
+    <ul class="nav nav-pills flex-column">
+        <li class="nav-item title">
+            LIST
+        </li>
+    </ul>
+    <hr>
+    <ul class="nav nav-pills flex-column">
+            @{
+                int i = 1;
+                foreach (var item in menu)
+                {
+                    <li class="nav-item item">
+                        <a name="itemLink" href="/Crawler/Index/@item.Key" class="btn btn-light @DisplayMenu(@item.Key)" role="button" style="padding:0;width:100%;font-size:14px;">
+                            <font class="float-left">@i. @item.Value</font>
+                            <font class="float-right" style="padding-right:10px;">@DisplayMenuIcon(@item.Key)</font>
+                        </a>
+                    </li>
+                    i++;
+                }
+            }
+    </ul>
+</nav>
+
+<!-- main -->
+<main role="main" class="col-12 main">
+    <h4 class="text-dark">
+        <i class="fa fa-calendar" aria-hidden="true">
+            @ViewBag.title<font>_</font> @ViewBag.titleCh
+        </i>
+    </h4>
+    <hr>
+    @ViewBag.menuName 
+    <font style="font-size:12px;">(共 @viewData.Rows.Count 筆資料)</font>
+    <nav aria-label="breadcrumb" role="navigation">
+        <table class="table table-sm table-hover text-nowrap" style="font-size:12px;">
+            <thead>
+                <tr>
+                    @foreach (System.Data.DataColumn column in viewData.Columns)
+                    {
+                        <th scope="col">@column</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (System.Data.DataRow row in viewData.Rows)
+                    {
+                        <tr>
+                            @foreach (System.Data.DataColumn column in viewData.Columns)
+                            {
+                                <td>@row[column].ToString()</td>
+                            }
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </nav>
+</main>
+<!-- Modal -->
+<div class="modal fade" id="syncModal" tabindex="-1" role="dialog" aria-labelledby="syncModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fa fa-download" aria-hidden="true"></i> Sync</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="container" id="needs-validation" action="/Crawler/Sync" method="post" novalidate>
+                    <div class="form-group row">
+                        <label for="staticIdentify" class="col-sm-2 col-form-label">Identify</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control-plaintext" name="Identify" value="@ViewBag.menukey">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputJsonPath" class="col-sm-2 col-form-label">JsonPath</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" name="JsonPath" required>@ViewBag.jsonPath</textarea>
+                            <div class="invalid-feedback">
+                                Please provide a json path.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputFileName" class="col-sm-2 col-form-label">FileName</label>
+                        <div class="col-sm-10">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="FileName" value="@ViewBag.fileName" required>
+                                <div class="input-group-addon" style="display: block;">.json</div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="syncSubmit" type="submit" class="btn btn-primary">Go</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="messageDialog" tabindex="-1" role="dialog" aria-labelledby="messageLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        @{
+            if (ViewBag.status == 1)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert" style="word-break: break-all;">
+                    <strong>success!!</strong> @ViewBag.msg
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert" style="word-break: break-all;">
+                    <strong>error!!</strong> @ViewBag.msg
+                </div>
+            }
+        }}
+    </div>
+</div>
+
+<script>
+    (function () {
+        //show message
+        if (@ViewBag.status > 0) $('#messageDialog').modal('show');
+        
+        //hot key
+        $(document).on('keydown', function (e) {
+            if (e.ctrlKey){
+                switch(true) {
+                    //search
+                    case (e.which == 81):
+                        $('#searchButton').click();
+                        return false;
+                    //sync
+                    case (e.which == 67):
+                        $('#syncModal').modal('show');
+                        return false;
+                    //item click
+                    case (e.which >= 49 && e.which <= 57):
+                        $('[name=itemLink]').get(e.which-49)?$('[name=itemLink]').get(e.which-49).click():false;
+                        return false;
+                }
+            }
+            //console.log(e.which);
+        });
+
+        //search
+        $('#searchButton').click(function(){
+            $('#searchButton').hide();
+            $('#searchDiv').show();
+            $('#searchInput').focus().select();   
+        });
+        $('#searchInput').blur(function(){
+            if($('#searchInput').val() == ''){
+                $('#searchButton').show();
+                $('#searchDiv').hide();
+            }
+        });
+
+
+        //sync submit
+        $('#syncSubmit').click(function () {
+            var form = document.getElementById('needs-validation');
+            if (form.checkValidity() === false) {
+                event.preventDefault();
+                event.stopPropagation();
+            } else {
+                form.submit();
+            }
+            form.classList.add('was-validated');
+        });
+    })();
+</script>
