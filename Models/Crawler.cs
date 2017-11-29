@@ -17,12 +17,12 @@ namespace NvestedExp.Models
         /// 
         /// </summary>
         /// <param name="key">CrawlerMenu key</param>
-        public Crawler(string key = "")
+        public Crawler(string key = "", string FilterString = "")
         {
             List<Models.CrawlerData> oData = GetData(key);
 
             data = oData.Where(x => x.Key == null).ToList();
-            viewData = GetDataView(key, "Data");
+            viewData = GetDataView(key, "Data", FilterString);
 
             System.Func<List<Models.CrawlerData>,string> funcValue = x => x.Count > 0 ? x[0].Value : "";
             jsonPath = funcValue(oData.Where(x => x.Object == "jsonPath" && x.Key == "Params").ToList());
@@ -45,7 +45,7 @@ namespace NvestedExp.Models
             }
         }
 
-        public DataTable GetDataView(string Identify = "", string Key = "")
+        public DataTable GetDataView(string Identify = "", string Key = "" , string FilterString = "")
         {
             using (SqlConnection conn = new SqlConnection(new Models.NvestedExpEntities().Database.Connection.ConnectionString))
             {
@@ -55,9 +55,11 @@ namespace NvestedExp.Models
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@Identify", SqlDbType.VarChar, 15);
                     cmd.Parameters.Add("@Key", SqlDbType.VarChar, 15);
+                    cmd.Parameters.Add("@FilterString", SqlDbType.NVarChar);
                     cmd.Parameters["@Identify"].Value = Identify;
                     cmd.Parameters["@Key"].Value = Key;
-                    
+                    cmd.Parameters["@FilterString"].Value = FilterString;
+
                     using (SqlDataAdapter ad = new SqlDataAdapter(cmd))
                     {
                         DataTable dt = new DataTable();

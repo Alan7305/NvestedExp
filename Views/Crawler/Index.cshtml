@@ -41,7 +41,7 @@
         <li class="nav-item item">
             <button type="button" class="btn btn-light" style="padding:0;width:100%;font-size:14px;" data-toggle="modal" data-target="#syncModal">
                 <font class="float-left"><i class="fa fa-download" aria-hidden="true"></i> Sync</font>
-                <font class="text-secondary float-right" style="padding-right:10px;">Ctrl+c</font>
+                <font class="text-secondary float-right" style="padding-right:10px;">Ctrl+y</font>
             </button>
         </li>
     </ul>
@@ -183,7 +183,7 @@
                         $('#searchButton').click();
                         return false;
                     //sync
-                    case (e.which == 67):
+                    case (e.which == 89):
                         $('#syncModal').modal('show');
                         return false;
                     //item click
@@ -199,7 +199,7 @@
         $('#searchButton').click(function(){
             $('#searchButton').hide();
             $('#searchDiv').show();
-            $('#searchInput').focus().select();   
+            $('#searchInput').focus().select();
         });
         $('#searchInput').blur(function(){
             if($('#searchInput').val() == ''){
@@ -207,7 +207,6 @@
                 $('#searchDiv').hide();
             }
         });
-
 
         //sync submit
         $('#syncSubmit').click(function () {
