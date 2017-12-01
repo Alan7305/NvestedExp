@@ -27,6 +27,7 @@ namespace NvestedExp.Controllers
 
             return View();
         }
+
         public ActionResult Sync()
         {
             string Identify = Request["Identify"] ?? "";
