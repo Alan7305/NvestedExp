@@ -5,7 +5,7 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="CrawlerData">
+        <EntityType Name="CrawlerDatas">
           <Key>
             <PropertyRef Name="ID" />
             <PropertyRef Name="Object" />
@@ -28,7 +28,7 @@
           <Property Name="Value" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityContainer Name="StoreContainer">
-          <EntitySet Name="CrawlerData" EntityType="Self.CrawlerData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CrawlerDatas" EntityType="Self.CrawlerDatas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_MenuData" EntityType="Self.Sys_MenuData" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -69,7 +69,7 @@
   <EntityContainerMapping StorageEntityContainer="StoreContainer" CdmEntityContainer="NvestedExpEntities" >
           <EntitySetMapping Name="CrawlerDatas">
             <EntityTypeMapping TypeName="NvestedExpModel.CrawlerData">
-              <MappingFragment StoreEntitySet="CrawlerData">
+              <MappingFragment StoreEntitySet="CrawlerDatas">
                 <ScalarProperty Name="Value" ColumnName="Value" />
                 <ScalarProperty Name="Key" ColumnName="Key" />
                 <ScalarProperty Name="Identify" ColumnName="Identify" />
