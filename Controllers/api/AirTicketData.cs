@@ -1,0 +1,17 @@
+﻿using System.Data;
+using System.Web.Http;
+
+namespace NvestedExp.Controllers.api
+{
+    public class AirTicketDataController : ApiController
+    {
+        public System.Data.DataTable Get(string id)
+        {
+            Models.Crawler CV = new Models.Crawler(id);
+            DataTable view = CV.viewData;
+            view.DefaultView.Sort = "day DESC";
+
+            return view.DefaultView.ToTable();
+        }
+    }
+}

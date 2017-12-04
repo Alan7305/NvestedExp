@@ -199,6 +199,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AirticketsController.cs" />
+    <Compile Include="Controllers\api\AirTicketData.cs" />
     <Compile Include="Controllers\api\CrawlerData.cs" />
     <Compile Include="Controllers\CrawlerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

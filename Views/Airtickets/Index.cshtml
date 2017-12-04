@@ -102,6 +102,15 @@ else
     </h4>
     <hr>
     @ViewBag.menuName
+
+    <!-- Chart -->
+    <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+    <script src="https://www.amcharts.com/lib/3/serial.js"></script>
+    <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+    <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+    <div id="chartdiv" style="width:100%; height:400px;"></div>
+
     <font style="font-size:12px;">(共 @viewData.Rows.Count 筆資料)</font>
     <nav aria-label="breadcrumb" role="navigation">
         <table class="table table-sm table-hover" style="font-size:12px;">
@@ -139,3 +148,85 @@ else
         </table>
     </nav>
 </main>
+<script>
+    var chart;
+    $.getJSON("http://localhost:52616/api/AirTicketData/AirTicket", function (data) {
+        var chartData = [];
+        var tData = [];
+        $.each(data, function (i, item) {
+            if (tData[item.day] == undefined) tData[item.day] = { date: new Date(item.day.substr(0, 4) + '/' + item.day.substr(4, 2) + '/' + item.day.substr(6, 2)) };
+            if (item.o_depTime == '08:20') tData[item.day].higher = parseInt(item.ticketFare, 10);
+            if (item.o_depTime == '14:20') tData[item.day].medium = parseInt(item.ticketFare, 10);
+            if (item.o_depTime == '17:10') tData[item.day].Low = parseInt(item.ticketFare, 10);
+        });
+        tData.forEach(function (value, index) {
+            chartData.push(value);
+        });
+
+        chart = AmCharts.makeChart("chartdiv", {
+            "type": "serial",
+            "theme": "light",
+            "legend": {
+                "useGraphSettings": true
+            },
+            "dataProvider": chartData,
+            "synchronizeGrid": true,
+            "valueAxes": [{
+                "id": "v1",
+                "axisColor": "#CCCCCC",
+                "axisThickness": 2,
+                "axisAlpha": 1,
+                "position": "left"
+            }],
+            "graphs": [{
+                "valueAxis": "v1",
+                "lineColor": "#B0DE09",
+                "bullet": "round",
+                "bulletBorderThickness": 1,
+                "hideBulletsCount": 30,
+                "title": "08:20(TPE) - 12:00(KIX)<br>19:05(TAK) - 20:45(TPE)",
+                "valueField": "higher",
+                "fillAlphas": 0
+            }, {
+                "valueAxis": "v2",
+                "lineColor": "#FCD202",
+                "bullet": "square",
+                "bulletBorderThickness": 1,
+                "hideBulletsCount": 30,
+                "title": "14:20(TPE) - 18:05(KIX)<br>19:05(TAK) - 20:45(TPE)",
+                "valueField": "medium",
+                "fillAlphas": 0
+            }, {
+                "valueAxis": "v3",
+                "lineColor": "#FF6600",
+                "bullet": "triangleUp",
+                "bulletBorderThickness": 1,
+                "hideBulletsCount": 30,
+                "title": "17:10(TPE) - 21:05(KIX)<br>19:05(TAK) - 20:45(TPE)",
+                "valueField": "Low",
+                "fillAlphas": 0
+            }],
+            "chartScrollbar": {},
+            "chartCursor": {
+                "cursorPosition": "mouse"
+            },
+            "categoryField": "date",
+            "categoryAxis": {
+                "parseDates": true,
+                "axisColor": "#DADADA",
+                "minorGridEnabled": true
+            },
+            "export": {
+                "enabled": true,
+                "position": "bottom-right"
+            }
+        });
+
+        chart.addListener("dataUpdated", zoomChart);
+        zoomChart();
+    });
+
+    function zoomChart() {
+        chart.zoomToIndexes(chart.dataProvider.length - 20, chart.dataProvider.length - 1);
+    }
+</script>
