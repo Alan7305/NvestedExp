@@ -78,18 +78,15 @@ body {
     
 .main {
     padding:10px 20px 0 270px;
-    font-size:14px;
 }
 .ch-title {
     font-size:10px;
 }
 .it-title {
-    font-size:14px;
     padding:4px 0px 4px 8px;
     margin:0px;
 }
 .item {
-    font-size:14px;
     padding:4px 0px 4px 8px;
     margin:0px;
 }

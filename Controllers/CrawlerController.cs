@@ -9,8 +9,9 @@ namespace NvestedExp.Controllers
         // GET: Crawlar
         public ActionResult Index(string id, int status = 0, string msg = "")
         {
+            string searchStr = Request["searchInput"] ?? "";
             Models.Sys_Menu Menu = new Models.Sys_Menu("Crawler", id);
-            Models.Crawler CV = new Models.Crawler(Menu.focusMenukey);
+            Models.Crawler CV = new Models.Crawler(Menu.focusMenukey, searchStr);
 
             ViewBag.title = "Crawler";
             ViewBag.titleCh = "爬蟲資料庫";
@@ -20,7 +21,8 @@ namespace NvestedExp.Controllers
             ViewBag.fileName = CV.fileName;
             ViewBag.status = status;
             ViewBag.msg = msg;
-
+            ViewBag.searchStr = searchStr;
+            
             ViewData["menu"] = Menu.menu;
             ViewData["data"] = CV.data;
             ViewData["viewData"] = CV.viewData;

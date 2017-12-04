@@ -29,17 +29,19 @@
     <hr>
     <ul class="nav nav-pills flex-column">
         <li class="nav-item item">
-            <button id="searchButton" type="button" class="btn btn-light" style="padding:0;width:100%;font-size:14px;">
+            <button id="searchButton" type="button" class="btn btn-light" style="padding:0;width:100%;">
                 <font class="float-left"><i class="fa fa-search" aria-hidden="true"></i> Search</font>
                 <font class="text-secondary float-right" style="padding-right:10px;">Ctrl+q</font>
             </button>
-            <div id="searchDiv" class="input-group input-group-sm" style="display:none;">
-                <font class="float-left"><i class="fa fa-search" aria-hidden="true" style="padding-top:6px"></i></font>
-                <input id="searchInput" style="height:23px;padding:4px;" type="text" class="form-control btn-light" placeholder="Search                Ctrl+q">
-            </div>
+            <form id="searchForm" method="post">
+                <div id="searchDiv" class="input-group input-group-sm" style="display:none;">
+                    <font class="float-left"><i class="fa fa-search" aria-hidden="true" style="padding-top:6px"></i></font>
+                    <input id="searchInput" name="searchInput" style="height:23px;padding:4px;" type="text" class="form-control btn-light" placeholder="Search                Ctrl+q" value="@ViewBag.searchStr">
+                </div>
+            </form>
         </li>
         <li class="nav-item item">
-            <button type="button" class="btn btn-light" style="padding:0;width:100%;font-size:14px;" data-toggle="modal" data-target="#syncModal">
+            <button type="button" class="btn btn-light" style="padding:0;width:100%;" data-toggle="modal" data-target="#syncModal">
                 <font class="float-left"><i class="fa fa-download" aria-hidden="true"></i> Sync</font>
                 <font class="text-secondary float-right" style="padding-right:10px;">Ctrl+y</font>
             </button>
@@ -57,7 +59,7 @@
                 foreach (var item in menu)
                 {
                     <li class="nav-item item">
-                        <a name="itemLink" href="/Crawler/Index/@item.Key" class="btn btn-light @DisplayMenu(@item.Key)" role="button" style="padding:0;width:100%;font-size:14px;">
+                        <a name="itemLink" href="/Crawler/Index/@item.Key" class="btn btn-light @DisplayMenu(@item.Key)" role="button" style="padding:0;width:100%;">
                             <font class="float-left">@i. @item.Value</font>
                             <font class="float-right" style="padding-right:10px;">@DisplayMenuIcon(@item.Key)</font>
                         </a>
@@ -79,7 +81,7 @@
     @ViewBag.menuName 
     <font style="font-size:12px;">(共 @viewData.Rows.Count 筆資料)</font>
     <nav aria-label="breadcrumb" role="navigation">
-        <table class="table table-sm table-hover text-nowrap" style="font-size:12px;">
+        <table class="table table-sm table-hover text-nowrap">
             <thead>
                 <tr>
                     @foreach (System.Data.DataColumn column in viewData.Columns)
@@ -196,6 +198,9 @@
         });
 
         //search
+        $('#searchInput').blur(function(){
+            $('#searchForm').submit();
+        });
         $('#searchButton').click(function(){
             $('#searchButton').hide();
             $('#searchDiv').show();
@@ -207,6 +212,7 @@
                 $('#searchDiv').hide();
             }
         });
+        if($('#searchInput').val() != '') $('#searchButton,#searchDiv').toggle();
 
         //sync submit
         $('#syncSubmit').click(function () {

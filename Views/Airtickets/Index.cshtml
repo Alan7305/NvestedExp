@@ -46,25 +46,25 @@ else
     <hr>
     <ul class="nav nav-pills flex-column">
         <li class="nav-item item">
-            <button type="button" class="btn btn-light" style="padding:0;width:100%;font-size:14px;">
+            <button type="button" class="btn btn-light" style="padding:0;width:100%;">
                 <font class="float-left"><i class="fa fa-search" aria-hidden="true"></i> Search</font>
                 <font class="text-secondary float-right" style="padding-right:10px;">Shift+q</font>
             </button>
         </li>
         <li class="nav-item item">
-            <button type="button" class="btn btn-light" style="padding:0;width:100%;font-size:14px;">
+            <button type="button" class="btn btn-light" style="padding:0;width:100%;">
                 <font class="float-left"><i class="fa fa-file-o" aria-hidden="true"></i> New</font>
                 <font class="text-secondary float-right" style="padding-right:10px;">Shift+n</font>
             </button>
         </li>
         <li class="nav-item item">
-            <button type="button" class="btn btn-light" style="padding:0;width:100%;font-size:14px;">
+            <button type="button" class="btn btn-light" style="padding:0;width:100%;">
                 <font class="float-left"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</font>
                 <font class="text-secondary float-right" style="padding-right:10px;">Shift+s</font>
             </button>
         </li>
         <li class="nav-item item">
-            <button type="button" class="btn btn-light" style="padding:0;width:100%;font-size:14px;">
+            <button type="button" class="btn btn-light" style="padding:0;width:100%;">
                 <font class="float-left"><i class="fa fa-refresh" aria-hidden="true"></i> Refresh</font>
                 <font class="text-secondary float-right" style="padding-right:10px;">Shift+r</font>
             </button>
@@ -82,7 +82,7 @@ else
             foreach (var item in menu)
             {
                 <li class="nav-item item">
-                    <a href="/Airtickets/Index/@item.Key" class="btn btn-light @DisplayMenu(@item.Key)" role="button" style="padding:0;width:100%;font-size:14px;">
+                    <a href="/Airtickets/Index/@item.Key" class="btn btn-light @DisplayMenu(@item.Key)" role="button" style="padding:0;width:100%;">
                         <font class="float-left">@i. @item.Value</font>
                         <font class="float-right" style="padding-right:10px;">@DisplayMenuIcon(@item.Key)</font>
                     </a>
@@ -113,7 +113,7 @@ else
 
     <font style="font-size:12px;">(共 @viewData.Rows.Count 筆資料)</font>
     <nav aria-label="breadcrumb" role="navigation">
-        <table class="table table-sm table-hover" style="font-size:12px;">
+        <table class="table table-sm table-hover">
             <thead>
                 <tr>
                     <th scope="col">#</th>
