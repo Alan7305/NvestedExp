@@ -175,6 +175,7 @@
       <LastGenOutput>Model1.cs</LastGenOutput>
       <DependentUpon>NvestedExp.edmx</DependentUpon>
     </Content>
+    <Content Include="Models\NvestedExp.sql" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
