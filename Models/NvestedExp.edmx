@@ -5,7 +5,7 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="CrawlerDatas">
+        <EntityType Name="CrawlerData">
           <Key>
             <PropertyRef Name="ID" />
             <PropertyRef Name="Object" />
@@ -14,7 +14,7 @@
           <Property Name="Object" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Identify" Type="nvarchar" MaxLength="15" />
           <Property Name="Key" Type="nvarchar" MaxLength="15" />
-          <Property Name="Value" Type="nvarchar" MaxLength="50" />
+          <Property Name="Value" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Sys_MenuData">
           <Key>
@@ -28,7 +28,7 @@
           <Property Name="Value" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityContainer Name="StoreContainer">
-          <EntitySet Name="CrawlerDatas" EntityType="Self.CrawlerDatas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CrawlerData" EntityType="Self.CrawlerData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_MenuData" EntityType="Self.Sys_MenuData" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -67,9 +67,9 @@
     <edmx:Mappings>
     <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="StoreContainer" CdmEntityContainer="NvestedExpEntities" >
-          <EntitySetMapping Name="CrawlerDatas">
-            <EntityTypeMapping TypeName="NvestedExpModel.CrawlerData">
-              <MappingFragment StoreEntitySet="CrawlerDatas">
+          <EntitySetMapping Name="Sys_MenuData">
+            <EntityTypeMapping TypeName="NvestedExpModel.Sys_MenuData">
+              <MappingFragment StoreEntitySet="Sys_MenuData">
                 <ScalarProperty Name="Value" ColumnName="Value" />
                 <ScalarProperty Name="Key" ColumnName="Key" />
                 <ScalarProperty Name="Identify" ColumnName="Identify" />
@@ -78,9 +78,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Sys_MenuData">
-            <EntityTypeMapping TypeName="NvestedExpModel.Sys_MenuData">
-              <MappingFragment StoreEntitySet="Sys_MenuData">
+          <EntitySetMapping Name="CrawlerDatas">
+            <EntityTypeMapping TypeName="IsTypeOf(NvestedExpModel.CrawlerData)">
+              <MappingFragment StoreEntitySet="CrawlerData">
                 <ScalarProperty Name="Value" ColumnName="Value" />
                 <ScalarProperty Name="Key" ColumnName="Key" />
                 <ScalarProperty Name="Identify" ColumnName="Identify" />

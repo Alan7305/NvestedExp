@@ -222,6 +222,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\NvestedExp.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NvestedExp.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\Sys_Menu.cs" />
     <Compile Include="Models\Sys_MenuData.cs">
       <DependentUpon>Model1.tt</DependentUpon>
