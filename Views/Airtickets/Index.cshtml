@@ -179,7 +179,7 @@ else
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="inputFileName" class="col-sm-3 col-form-label">去程班機</label>
+                        <label for="inputFileName" class="col-sm-3 col-form-label">去程航班</label>
                         <div class="col-sm-9">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="FileName" value="@ViewBag.fileName" required>
@@ -187,16 +187,36 @@ else
                                 <input type="text" class="form-control" name="FileName" value="@ViewBag.fileName" required>
                                 <div class="input-group-addon" style="display: block;">KIX</div>
                             </div>
+                            <div class="btn-group" data-toggle="buttons" style="padding-top:10px;">
+                                <label class="btn btn-light active">
+                                    <input type="radio" name="options" id="option1" autocomplete="off" checked> 華航
+                                    <img src="https://d3g2yh83to8qa2.cloudfront.net/wp-content/uploads/1/2016/09/09021145/ci-logo.jpg" class="rounded table-primary" style="height:20px;">
+                                </label>
+                                <label class="btn btn-light">
+                                    <input type="radio" name="options" id="option2" autocomplete="off"> ANA
+                                    <img src="https://talkairlines.files.wordpress.com/2014/03/ana_logo_low.jpg" class="rounded table-primary" style="height:20px;">
+                                </label>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="inputFileName" class="col-sm-3 col-form-label">回程班機</label>
+                        <label for="inputFileName" class="col-sm-3 col-form-label">回程航班</label>
                         <div class="col-sm-9">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="FileName" value="@ViewBag.fileName" required>
                                 <div class="input-group-addon" style="display: block;">TAK</div>
                                 <input type="text" class="form-control" name="FileName" value="@ViewBag.fileName" required>
                                 <div class="input-group-addon" style="display: block;">TPE</div>
+                            </div>
+                            <div class="btn-group" data-toggle="buttons" style="padding-top:10px;">
+                                <label class="btn btn-light active">
+                                    <input type="radio" name="options" id="option1" autocomplete="off" checked> 華航
+                                    <img src="https://d3g2yh83to8qa2.cloudfront.net/wp-content/uploads/1/2016/09/09021145/ci-logo.jpg" class="rounded table-primary" style="height:20px;">
+                                </label>
+                                <label class="btn btn-light">
+                                    <input type="radio" name="options" id="option2" autocomplete="off"> ANA
+                                    <img src="https://talkairlines.files.wordpress.com/2014/03/ana_logo_low.jpg" class="rounded table-primary" style="height:20px;">
+                                </label>
                             </div>
                         </div>
                     </div>
