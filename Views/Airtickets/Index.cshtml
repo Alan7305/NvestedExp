@@ -46,21 +46,21 @@ else
     <hr>
     <ul class="nav nav-pills flex-column">
         <li class="nav-item item">
-            <button type="button" class="btn btn-light" style="padding:0;width:100%;">
+            <button id="searchButton" type="button" class="btn btn-light" style="padding:0;width:100%;">
                 <font class="float-left"><i class="fa fa-search" aria-hidden="true"></i> Search</font>
-                <font class="text-secondary float-right" style="padding-right:10px;">Shift+q</font>
+                <font class="text-secondary float-right" style="padding-right:10px;font-family: 'Inconsolata', monospace;">Ctrl+q</font>
             </button>
+            <form id="searchForm" method="post">
+                <div id="searchDiv" class="input-group input-group-sm" style="display:none;">
+                    <font class="float-left"><i class="fa fa-search" aria-hidden="true" style="padding-top:6px"></i></font>
+                    <input id="searchInput" name="searchInput" style="height:23px;padding:4px;" type="text" class="form-control btn-light" placeholder="Search" value="@ViewBag.searchStr">
+                </div>
+            </form>
         </li>
         <li class="nav-item item">
-            <button type="button" class="btn btn-light" style="padding:0;width:100%;">
-                <font class="float-left"><i class="fa fa-file-o" aria-hidden="true"></i> New</font>
-                <font class="text-secondary float-right" style="padding-right:10px;">Shift+n</font>
-            </button>
-        </li>
-        <li class="nav-item item">
-            <button type="button" class="btn btn-light" style="padding:0;width:100%;">
-                <font class="float-left"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</font>
-                <font class="text-secondary float-right" style="padding-right:10px;">Shift+s</font>
+            <button id="insertButton" type="button" class="btn btn-light" style="padding:0;width:100%;" data-toggle="modal" data-target="#airticketModal">
+                <font class="float-left"><i class="fa fa-file-o" aria-hidden="true"></i> Insert Data</font>
+                <font class="text-secondary float-right" style="padding-right:10px;font-family: 'Inconsolata', monospace;">Ctrl+i</font>
             </button>
         </li>
     </ul>
@@ -76,8 +76,8 @@ else
             foreach (var item in menu)
             {
                 <li class="nav-item item">
-                    <a href="/Airtickets/Index/@item.Key" class="btn btn-light @DisplayMenu(@item.Key)" role="button" style="padding:0;width:100%;">
-                        <font class="float-left">@i. @item.Value</font>
+                    <a name="itemLink" href="/Airtickets/Index/@item.Key" class="btn btn-light @DisplayMenu(@item.Key)" title="@i. @item.Value" role="button" style="padding:0;width:100%;">
+                        <font class="float-left">@i. @item.Value.Substring(0, item.Value.Length < 11 ? item.Value.Length : 11)@(item.Value.Length > 11 ? "..." : "")</font>
                         <font class="float-right" style="padding-right:10px;">@DisplayMenuIcon(@item.Key)</font>
                     </a>
                 </li>
@@ -142,9 +142,56 @@ else
         </table>
     </nav>
 </main>
+<!-- Modal -->
+<div class="modal fade" id="airticketModal" tabindex="-1" role="dialog" aria-labelledby="airticketModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fa fa-file-o" aria-hidden="true"></i> Insert Data</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="container" id="needs-validation" action="/Crawler/Sync" method="post" novalidate>
+                    <div class="form-group row">
+                        <label for="staticItem" class="col-sm-2 col-form-label">Item</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control-plaintext" name="Identify" value="@ViewBag.menuName">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputJsonPath" class="col-sm-2 col-form-label">報價日期</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" name="FileName" value="@DateTime.Now.ToString("yyyyMMdd")" required>
+                            <input type="text" class="form-control" name="FileName" value="@ViewBag.fileName" required>
+                            <div class="input-group-addon" style="display: block;">.json</div>
+                            <div class="invalid-feedback">
+                                Please provide a json path.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputFileName" class="col-sm-2 col-form-label">FileName</label>
+                        <div class="col-sm-10">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="FileName" value="@ViewBag.fileName" required>
+                                <div class="input-group-addon" style="display: block;">.json</div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="newSubmit" type="submit" class="btn btn-primary">Go</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     var chart;
-    $.getJSON("http://localhost:52616/api/AirTicketData/AirTicket", function (data) {
+    $.getJSON("http://localhost:52616/api/AirTicketData/AirTicket", { searchStr:'@ViewBag.searchStr' }, function (data) {
         var chartData = [];
         var tData = [];
         $.each(data, function (i, item) {
@@ -223,4 +270,59 @@ else
     function zoomChart() {
         chart.zoomToIndexes(chart.dataProvider.length - 20, chart.dataProvider.length - 1);
     }
+
+    (function () {
+        //show message
+        if (@ViewBag.status > 0) $('#messageDialog').modal('show');
+        
+        //hot key
+        $(document).on('keydown', function (e) {
+            if (e.ctrlKey){
+                switch(true) {
+                    //search
+                    case (e.which == 81):
+                        $('#searchButton').click();
+                        return false;
+                    //Insert Data
+                    case (e.which == 73):
+                        $('#insertButton').click();
+                        return false;
+                    //item click
+                    case (e.which >= 49 && e.which <= 57):
+                        console.log($('[name=itemLink]').get(e.which-49));
+                        $('[name=itemLink]').get(e.which-49)?$('[name=itemLink]').get(e.which-49).click():false;
+                        return false;
+                }
+            }
+            //console.log(e.which);
+        });
+        
+        //search
+        $('#searchButton').click(function () {
+            $('#searchButton').hide();
+            $('#searchDiv').show();
+            $('#searchInput').focus().select();
+        });
+        $('#searchInput').blur(function () {
+            if ($('#searchInput').val() == '') {
+                $('#searchButton').show();
+                $('#searchDiv').hide();
+            }
+        }).change(function () {
+            $('#searchForm').submit();
+        });
+        if ($('#searchInput').val() != '') $('#searchButton,#searchDiv').toggle();
+    
+        //new submit
+        $('#newSubmit').click(function () {
+            var form = document.getElementById('needs-validation');
+            if (form.checkValidity() === false) {
+                event.preventDefault();
+                event.stopPropagation();
+            } else {
+                form.submit();
+            }
+            form.classList.add('was-validated');
+        });
+    })();
 </script>

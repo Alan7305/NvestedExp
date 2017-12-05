@@ -5,9 +5,9 @@ namespace NvestedExp.Controllers.api
 {
     public class AirTicketDataController : ApiController
     {
-        public System.Data.DataTable Get(string id)
+        public System.Data.DataTable Get(string id, string searchStr)
         {
-            Models.Crawler CV = new Models.Crawler(id);
+            Models.Crawler CV = new Models.Crawler(id, searchStr);
             DataTable view = CV.viewData;
             view.DefaultView.Sort = "day DESC";
 
