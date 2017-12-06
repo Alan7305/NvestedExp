@@ -57,12 +57,6 @@ else
                 </div>
             </form>
         </li>
-        <li class="nav-item item">
-            <button id="insertButton" type="button" class="btn btn-light" style="padding:0;width:100%;" data-toggle="modal" data-target="#airticketModal">
-                <font class="float-left"><i class="fa fa-file-o" aria-hidden="true"></i> Insert Data</font>
-                <font class="text-secondary float-right" style="padding-right:10px;font-family: 'Inconsolata', monospace;">Ctrl+i</font>
-            </button>
-        </li>
     </ul>
     <ul class="nav nav-pills flex-column">
         <li class="nav-item title">
@@ -142,93 +136,7 @@ else
         </table>
     </nav>
 </main>
-<!-- Modal -->
-<div class="modal fade" id="airticketModal" tabindex="-1" role="dialog" aria-labelledby="airticketModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"><i class="fa fa-file-o" aria-hidden="true"></i> Insert Data</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form class="container" id="needs-validation" action="/Crawler/Sync" method="post" novalidate>
-                    <div class="form-group row">
-                        <label for="staticItem" class="col-sm-3 col-form-label">Item</label>
-                        <div class="col-sm-9">
-                            <input type="text" readonly class="form-control-plaintext" name="Identify" value="@ViewBag.menuName">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="inputJsonPath" class="col-sm-3 col-form-label">報價日期</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" name="FileName" value="@DateTime.Now.ToString("yyyyMMdd")" style="width:100px;" required>
-                            <div class="invalid-feedback">
-                                請提供報價日期.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="inputJsonPath" class="col-sm-3 col-form-label">價格</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" name="FileName" value="0" style="width:100px;" required>
-                            <div class="invalid-feedback">
-                                請提供價格.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="inputFileName" class="col-sm-3 col-form-label">去程航班</label>
-                        <div class="col-sm-9">
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="FileName" value="@ViewBag.fileName" required>
-                                <div class="input-group-addon" style="display: block;">TPE</div>
-                                <input type="text" class="form-control" name="FileName" value="@ViewBag.fileName" required>
-                                <div class="input-group-addon" style="display: block;">KIX</div>
-                            </div>
-                            <div class="btn-group" data-toggle="buttons" style="padding-top:10px;">
-                                <label class="btn btn-light active">
-                                    <input type="radio" name="options" id="option1" autocomplete="off" checked> 華航
-                                    <img src="https://d3g2yh83to8qa2.cloudfront.net/wp-content/uploads/1/2016/09/09021145/ci-logo.jpg" class="rounded table-primary" style="height:20px;">
-                                </label>
-                                <label class="btn btn-light">
-                                    <input type="radio" name="options" id="option2" autocomplete="off"> ANA
-                                    <img src="https://talkairlines.files.wordpress.com/2014/03/ana_logo_low.jpg" class="rounded table-primary" style="height:20px;">
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="inputFileName" class="col-sm-3 col-form-label">回程航班</label>
-                        <div class="col-sm-9">
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="FileName" value="@ViewBag.fileName" required>
-                                <div class="input-group-addon" style="display: block;">TAK</div>
-                                <input type="text" class="form-control" name="FileName" value="@ViewBag.fileName" required>
-                                <div class="input-group-addon" style="display: block;">TPE</div>
-                            </div>
-                            <div class="btn-group" data-toggle="buttons" style="padding-top:10px;">
-                                <label class="btn btn-light active">
-                                    <input type="radio" name="options" id="option1" autocomplete="off" checked> 華航
-                                    <img src="https://d3g2yh83to8qa2.cloudfront.net/wp-content/uploads/1/2016/09/09021145/ci-logo.jpg" class="rounded table-primary" style="height:20px;">
-                                </label>
-                                <label class="btn btn-light">
-                                    <input type="radio" name="options" id="option2" autocomplete="off"> ANA
-                                    <img src="https://talkairlines.files.wordpress.com/2014/03/ana_logo_low.jpg" class="rounded table-primary" style="height:20px;">
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button id="newSubmit" type="submit" class="btn btn-primary">Go</button>
-            </div>
-        </div>
-    </div>
-</div>
+
 <script>
     var chart;
     $.getJSON("http://localhost:52616/api/AirTicketData/AirTicket", { searchStr:'@ViewBag.searchStr' }, function (data) {
@@ -253,11 +161,7 @@ else
             "dataProvider": chartData,
             "synchronizeGrid": true,
             "valueAxes": [{
-                "id": "v1",
-                "axisColor": "#CCCCCC",
-                "axisThickness": 2,
-                "axisAlpha": 1,
-                "position": "left"
+                "id": "v1"
             }],
             "graphs": [{
                 "valueAxis": "v1",
@@ -323,10 +227,6 @@ else
                     case (e.which == 81):
                         $('#searchButton').click();
                         return false;
-                    //Insert Data
-                    case (e.which == 73):
-                        $('#insertButton').click();
-                        return false;
                     //item click
                     case (e.which >= 49 && e.which <= 57):
                         console.log($('[name=itemLink]').get(e.which-49));
@@ -352,17 +252,5 @@ else
             $('#searchForm').submit();
         });
         if ($('#searchInput').val() != '') $('#searchButton,#searchDiv').toggle();
-    
-        //new submit
-        $('#newSubmit').click(function () {
-            var form = document.getElementById('needs-validation');
-            if (form.checkValidity() === false) {
-                event.preventDefault();
-                event.stopPropagation();
-            } else {
-                form.submit();
-            }
-            form.classList.add('was-validated');
-        });
     })();
 </script>

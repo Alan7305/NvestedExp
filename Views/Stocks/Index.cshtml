@@ -1,0 +1,212 @@
+﻿<!-- Second Menu -->
+<nav class="bg-light sidebar2">
+    <ul class="nav nav-pills flex-column">
+        <li class="nav-item title">
+            CONSOLE
+        </li>
+    </ul>
+    <hr>
+    <ul class="nav nav-pills flex-column">
+        <li class="nav-item item">
+            <button id="searchButton" type="button" class="btn btn-light" style="padding:0;width:100%;">
+                <font class="float-left"><i class="fa fa-search" aria-hidden="true"></i> Search</font>
+                <font class="text-secondary float-right" style="padding-right:10px;font-family: 'Inconsolata', monospace;">Ctrl+q</font>
+            </button>
+            <form id="searchForm" method="post">
+                <div id="searchDiv" class="input-group input-group-sm" style="display:none;">
+                    <font class="float-left"><i class="fa fa-search" aria-hidden="true" style="padding-top:6px"></i></font>
+                    <input id="searchInput" name="searchInput" style="height:23px;padding:4px;" type="text" class="form-control btn-light" placeholder="Search" value="@ViewBag.searchStr">
+                </div>
+            </form>
+        </li>
+        <li class="nav-item item">
+            <button id="insertButton" type="button" class="btn btn-light" style="padding:0;width:100%;" data-toggle="modal" data-target="#airticketModal">
+                <font class="float-left"><i class="fa fa-file-o" aria-hidden="true"></i> Insert Data</font>
+                <font class="text-secondary float-right" style="padding-right:10px;font-family: 'Inconsolata', monospace;">Ctrl+i</font>
+            </button>
+        </li>
+    </ul>
+    <ul class="nav nav-pills flex-column">
+        <li class="nav-item title">
+            LIST
+        </li>
+    </ul>
+    <hr>
+    <ul class="nav nav-pills flex-column">
+        <li class="nav-item item">
+            <a name="itemLink" href="/Airtickets/Index/" class="btn btn-light" title="" role="button" style="padding:0;width:100%;">
+                <font class="float-left">1. 2330台積電</font>
+                <font class="float-right" style="padding-right:10px;"></font>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<!-- main -->
+<main role="main" class="col-12 main">
+    <h4 class="text-dark">
+        <i class="fa fa-calendar" aria-hidden="true">
+            @ViewBag.title<font>_</font> @ViewBag.titleCh
+        </i>
+    </h4>
+    <hr>
+    @ViewBag.menuName
+    <div class="card">
+        <div class="card-header">
+            <div class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">總覽</a>
+                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">報酬走勢</a>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <dl class="row" style="margin:0;">
+                        <dt class="col-sm-2">市值：</dt>
+                        <dd class="col-sm-4">781,032</dd>
+                        <dt class="col-sm-2">持有股數：</dt>
+                        <dd class="col-sm-4">5,000</dd>
+                        <dt class="col-sm-2">投資金額：</dt>
+                        <dd class="col-sm-4">522,000</dd>
+                        <dt class="col-sm-2">損益：</dt>
+                        <dd class="col-sm-4">+56,221(<span class="text-success"><i class="fa fa-arrow-up" aria-hidden="true"></i>15.31%</span>)</dd>
+                        <dt class="col-sm-2">配息金額：</dt>
+                        <dd class="col-sm-4">781,032</dd>
+                        <dt class="col-sm-2">含息損益：</dt>
+                        <dd class="col-sm-4">+86,221(<span class="text-success"><i class="fa fa-arrow-up" aria-hidden="true"></i>19.18%</span>)</dd>
+                    </dl>
+                </div>
+                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <!-- Chart -->
+                    <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+                    <script src="https://www.amcharts.com/lib/3/serial.js"></script>
+                    <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+                    <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+                    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+                    <div id="chartdiv" style="width:100%; height:300px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <font style="font-size:12px;">(共 X 筆資料)</font>
+    <nav aria-label="breadcrumb" role="navigation">
+        <table class="table table-sm table-hover text-right">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">#</th>
+                    <th scope="col">交易日期</th>
+                    <th scope="col">交易股數</th>
+                    <th scope="col">每股價額</th>
+                    <th scope="col">總金額</th>
+                    <th scope="col">備註</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="badge badge-primary">買入</span></td>
+                    <th scope="row">1</th>
+                    <td>2017/05/10</td>
+                    <td>1,000</td>
+                    <td>205.29</td>
+                    <td>205,292</td>
+                    <td>初購</td>
+                </tr>
+                <tr>
+                    <td><span class="badge badge-danger">賣出</span></td>
+                    <th scope="row">2</th>
+                    <td>2017/06/10</td>
+                    <td>1,000</td>
+                    <td>205.29</td>
+                    <td>205,292</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><span class="badge badge-success">配息</span></td>
+                    <th scope="row">3</th>
+                    <td>2017/07/10</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>5,292</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><span class="badge badge-success">配股</span></td>
+                    <th scope="row">3</th>
+                    <td>2017/07/10</td>
+                    <td>1,230</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </nav>
+</main>
+<!-- Chart code -->
+<script>
+    var chartData = function () {
+        var data = [];
+        var firstDate = new Date();
+        firstDate.setDate(firstDate.getDate() - 100);
+
+        var investment = 1600;
+        var profit = 100;
+
+        for (var i = 0; i < 1000; i++) {
+            var newDate = new Date(firstDate);
+            newDate.setDate(newDate.getDate() + i);
+
+            investment += Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 10);
+            profit += Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 10);
+
+            data.push({
+                date: newDate,
+                investment: investment,
+                profit: profit
+            });
+        }
+        return data;
+    }
+var chart = AmCharts.makeChart("chartdiv", {
+    "type": "serial",
+    "theme": "light",
+    "legend": {
+        "periodValueText": "現值: [[value.close]]",
+        "valueWidth": 100
+    },
+    "dataProvider": chartData(),
+    "valueAxes": [{
+        "stackType": "regular",
+        "minimum": 0
+    }],
+    "graphs": [{
+        "balloonText": "[[value]]",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "投資金額",
+        "valueField": "investment"
+    }, {
+        "balloonText": "[[value]]",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "損益",
+        "valueField": "profit"
+    }],
+    "chartScrollbar": {},
+    "chartCursor": {
+        "cursorPosition": "mouse"
+    },
+    "categoryField": "date",
+    "categoryAxis": {
+        "parseDates": true,
+        "startOnAxis": true,
+        "axisColor": "#DADADA",
+        "gridAlpha": 0.07
+    },
+    "export": {
+        "enabled": true,
+        "position": "bottom-right"
+     }
+});
+</script>
