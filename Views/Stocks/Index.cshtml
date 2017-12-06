@@ -150,15 +150,15 @@
         var firstDate = new Date();
         firstDate.setDate(firstDate.getDate() - 100);
 
-        var investment = 1600;
-        var profit = 100;
+        var investment = 520000;
+        var profit = 50000;
 
         for (var i = 0; i < 1000; i++) {
             var newDate = new Date(firstDate);
             newDate.setDate(newDate.getDate() + i);
 
-            investment += Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 10);
-            profit += Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 10);
+            investment += Math.round((Math.random() < 0.5 ? 1000 : -1000) * Math.random() * 10);
+            profit += Math.round((Math.random() < 0.5 ? 1000 : -1000) * Math.random() * 10);
 
             data.push({
                 date: newDate,
