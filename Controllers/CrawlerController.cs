@@ -39,7 +39,19 @@ namespace NvestedExp.Controllers
             Models.JsonToDB J2D = new Models.JsonToDB();
             J2D.execute(JsonPath + @"\" + FileName + ".json");
 
-            return RedirectToAction("Index",new { id = Identify, status = J2D.status, msg = J2D.msg });
+            return RedirectToAction("Index", new { id = Identify, status = J2D.status, msg = J2D.msg });
+        }
+
+        public ActionResult SyncStock()
+        {
+            string Identify = Request["Identify"] ?? "";
+            string JsonPath = Request["JsonPath"] ?? "";
+            string FileName = Request["FileName"] ?? "";
+
+            Models.JsonToDB J2D = new Models.JsonToDB();
+            J2D.execute(JsonPath + @"\" + FileName + ".json");
+
+            return RedirectToAction("Index", new { id = Identify, status = J2D.status, msg = J2D.msg });
         }
     }
 }

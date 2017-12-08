@@ -168,45 +168,45 @@
         }
         return data;
     }
-var chart = AmCharts.makeChart("chartdiv", {
-    "type": "serial",
-    "theme": "light",
-    "legend": {
-        "periodValueText": "現值: [[value.close]]",
-        "valueWidth": 100
-    },
-    "dataProvider": chartData(),
-    "valueAxes": [{
-        "stackType": "regular",
-        "minimum": 0
-    }],
-    "graphs": [{
-        "balloonText": "[[value]]",
-        "fillAlphas": 0.6,
-        "lineAlpha": 0.4,
-        "title": "投資金額",
-        "valueField": "investment"
-    }, {
-        "balloonText": "[[value]]",
-        "fillAlphas": 0.6,
-        "lineAlpha": 0.4,
-        "title": "損益",
-        "valueField": "profit"
-    }],
-    "chartScrollbar": {},
-    "chartCursor": {
-        "cursorPosition": "mouse"
-    },
-    "categoryField": "date",
-    "categoryAxis": {
-        "parseDates": true,
-        "startOnAxis": true,
-        "axisColor": "#DADADA",
-        "gridAlpha": 0.07
-    },
-    "export": {
-        "enabled": true,
-        "position": "bottom-right"
-     }
-});
+    var chart = AmCharts.makeChart("chartdiv", {
+        "type": "serial",
+        "theme": "light",
+        "legend": {
+            "periodValueText": "現值: [[value.close]]",
+            "valueWidth": 100
+        },
+        "dataProvider": chartData(),
+        "valueAxes": [{
+            "stackType": "regular",
+            "minimum": 0
+        }],
+        "graphs": [{
+            "balloonText": "[[value]]",
+            "fillAlphas": 0.6,
+            "lineAlpha": 0.4,
+            "title": "投資金額",
+            "valueField": "investment"
+        }, {
+            "balloonText": "[[value]]",
+            "fillAlphas": 0.6,
+            "lineAlpha": 0.4,
+            "title": "損益",
+            "valueField": "profit"
+        }],
+        "chartScrollbar": {},
+        "chartCursor": {
+            "cursorPosition": "mouse"
+        },
+        "categoryField": "date",
+        "categoryAxis": {
+            "parseDates": true,
+            "startOnAxis": true,
+            "axisColor": "#DADADA",
+            "gridAlpha": 0.07
+        },
+        "export": {
+            "enabled": true,
+            "position": "bottom-right"
+         }
+    });
 </script>

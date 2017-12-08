@@ -13,7 +13,7 @@ namespace NvestedExp.Controllers
             Models.Crawler CV = new Models.Crawler(Menu.focusMenukey, searchStr);
 
             ViewBag.title = "AirTickets";
-            ViewBag.titleCh = "航空機票報價";
+            ViewBag.titleCh = "飛機航班報價";
             ViewBag.menukey = Menu.focusMenukey;
             ViewBag.menuName = Menu.focusMenuName;
             ViewBag.status = status;

@@ -49,7 +49,7 @@ namespace NvestedExp.Models
                 }
 
                 //insert to db
-                using (SqlConnection connection = new SqlConnection("Data Source=192.168.4.102,1433;Initial Catalog=NvestedExp;Persist Security Info=True;UID=sa;Password=sa"))
+                using (SqlConnection connection = new SqlConnection(new Models.NvestedExpEntities().Database.Connection.ConnectionString))
                 {
                     SqlCommand command = new SqlCommand();
                     command.Connection = connection;
